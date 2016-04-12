@@ -1,0 +1,12 @@
+name: cartman
+version: 0.1.0
+
+authors:
+  - Luke van der Hoeven <hungerandthirst@gmail.com>
+
+license: MIT
+
+dependencies:
+  commander:
+    github: meskyanichi/commander
+    version: ~> 0.3.2
