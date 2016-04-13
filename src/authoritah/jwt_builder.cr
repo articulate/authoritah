@@ -28,6 +28,7 @@ module Authoritah
 
     def refresh
       @setup.remove "jwt.created_at", "jwt.uid"
+      generate
     end
 
     def generate
