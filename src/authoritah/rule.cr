@@ -1,6 +1,6 @@
 require "json"
 
-module Cartman
+module Authoritah
   class Rule
     include Mixins::DiffHelpers
 

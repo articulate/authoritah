@@ -1,4 +1,4 @@
-name: cartman
+name: authoritah
 version: 0.1.0
 
 authors:
@@ -10,3 +10,7 @@ dependencies:
   commander:
     github: meskyanichi/commander
     version: ~> 0.3.2
+
+development_dependencies:
+  mock:
+    github: porras/mock

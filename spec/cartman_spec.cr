@@ -1,4 +1,4 @@
 require "./spec_helper"
 
-describe Cartman do
+describe Authoritah do
 end

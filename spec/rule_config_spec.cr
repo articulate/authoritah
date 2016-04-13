@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-module Cartman
+module Authoritah
   describe RuleConfig do
     config = config_fixture("rule")
 

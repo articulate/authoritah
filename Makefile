@@ -1,10 +1,10 @@
 all: build
 
 build:
-	crystal build -o cartman src/cli.cr
+	crystal build -o authoritah src/cli.cr
 
 build-release:
-	crystal build --release -o cartman src/cli.cr
+	crystal build --release -o authoritah src/cli.cr
 
 test:
 	crystal spec

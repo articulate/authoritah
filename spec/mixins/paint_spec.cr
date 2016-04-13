@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-module Cartman
+module Authoritah
   describe Mixins::Paint do
     it "will paint strings colors by default" do
       "test".paint(:red).should eq "\e[31mtest\e[0m"

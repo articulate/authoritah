@@ -1,6 +1,6 @@
 require "colorize"
 
-module Cartman
+module Authoritah
   module Mixins::Paint
     $COLORIZE = true
 
@@ -15,5 +15,5 @@ module Cartman
 end
 
 class String
-  include Cartman::Mixins::Paint
+  include Authoritah::Mixins::Paint
 end

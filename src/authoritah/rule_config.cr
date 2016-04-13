@@ -1,6 +1,6 @@
 require "yaml"
 
-module Cartman
+module Authoritah
   class RuleConfig
     include Mixins::DiffHelpers
 

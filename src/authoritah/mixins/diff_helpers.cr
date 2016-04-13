@@ -1,4 +1,4 @@
-module Cartman
+module Authoritah
   module Mixins::DiffHelpers
     macro def_equals_type(type, *fields)
       def ==(other : {{type}})
