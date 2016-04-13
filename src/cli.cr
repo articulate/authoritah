@@ -1,6 +1,8 @@
 require "commander"
 require "./authoritah"
 
+include Authoritah::Mixins::Speak
+
 domain_flag = Commander::Flag.new do |flag|
   flag.name = "domain"
   flag.short = "-d"
@@ -9,7 +11,7 @@ domain_flag = Commander::Flag.new do |flag|
   flag.description = "The Auth0 domain."
 end
 
-setup = Authoritah::Setup.new
+setup = Authoritah::Setup.new("./.authoritah")
 
 cli = Commander::Command.new do |cmd|
   cmd.use = "authoritah"
@@ -52,6 +54,43 @@ cli = Commander::Command.new do |cmd|
     end
   end
 
+  cmd.commands.add do |cmd|
+    cmd.use = "jwt [refresh]"
+    cmd.short = "Generate a JWT or force a refresh of the token"
+
+    cmd.flags.add do |flag|
+      flag.name = "key"
+      flag.short = "-k"
+      flag.long = "--key"
+      flag.default = ""
+      flag.description = "The Auth0 domain key."
+    end
+
+    cmd.flags.add do |flag|
+      flag.name = "secret"
+      flag.short = "-s"
+      flag.long = "--secret"
+      flag.default = ""
+      flag.description = "The Auth0 domain secret."
+    end
+
+    cmd.run do |options, arguments|
+      key = setup.get("auth0.key", default: options.string["key"], save: true) as String
+      secret = setup.get("auth0.secret", default: options.string["secret"], save: true) as String
+
+      error "Missing key or secret options." if key.empty? || secret.empty?
+
+      builder = Authoritah::JWTBuilder.new(key, secret, setup)
+
+      if arguments.size > 0 && arguments.first == "refresh"
+        jwt = builder.refresh
+        ok "Regenerated JWT: #{jwt}"
+      else
+        jwt = builder.generate
+        ok "Generated JWT: #{jwt}"
+      end
+    end
+  end
 end
 
 Commander.run(cli, ARGV)
