@@ -61,8 +61,11 @@ module Authoritah
       keys.map { |k| get(k) }.to_a
     end
 
-    def get(key, default = nil)
-      config.fetch(key.to_s, default) as Terminals
+    def get(key, default = nil, save = false)
+      value = config.fetch(key.to_s, default) as Terminals
+      set(key, value) if save && !default.nil? && !default.to_s.empty?
+
+      value
     end
 
     def get(key, default = nil, &block)

@@ -53,14 +53,30 @@ module Authoritah
         setup.get("hello", "face").should eq "face"
       end
 
-      it "does not set default in config" do
+      it "does not set default in config by default" do
         setup.get("hello", "face").should eq "face"
         setup.get("hello").should be_nil
+      end
+
+      it "can save default if desired" do
+        setup.get("back", "face", save: true).should eq "face"
+        setup.get("back").should eq "face"
+      end
+
+      it "does not save default if missing" do
+        setup.get("dali", "", save: true).should eq ""
+        setup.get("dali").should eq nil
+
+        setup.get("dali", nil, save: true).should eq nil
+        setup.get("dali").should eq nil
       end
 
       it "can get multiple values" do
         setup.gets("test", "hello").should eq([1, nil])
       end
+
+      # cleanup
+      setup.remove "back", "dali"
     end
 
     describe "typed getters" do
