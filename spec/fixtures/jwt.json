@@ -1,4 +1,5 @@
 {
+  "auth0.domain": "fake",
   "jwt.created_at": 1460577435,
   "jwt.uid": "38acc79badd87003300aea48ee3eb3c7"
 }

@@ -1,0 +1,34 @@
+[
+  {
+    "enabled": false,
+    "id": "rul_gitP2ivZ7ZV9uDcN",
+    "name": "derp rule",
+    "order": 1,
+    "script": "",
+    "stage": "test"
+  },
+  {
+    "enabled": false,
+    "id": "rul_YG07M0qGYhnPPaix",
+    "name": "derper rule",
+    "order": 2,
+    "script": "scripty mcscripterson",
+    "stage": "test"
+  },
+  {
+    "enabled": false,
+    "id": "rul_2VGSTgrmqGK4WvR6",
+    "name": "derpsalot",
+    "order": 3,
+    "script": "function() {/* noop */}",
+    "stage": "test"
+  },
+  {
+    "enabled": false,
+    "id": "rul_3OsegVvry1uid6KU",
+    "name": "derpydoowap",
+    "order": 4,
+    "script": "cant-even.com",
+    "stage": "login_success"
+  }
+]

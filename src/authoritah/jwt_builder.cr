@@ -22,6 +22,11 @@ module Authoritah
     def initialize(@key : String, @secret : String, @setup : Setup)
     end
 
+    def initialize(@setup : Setup)
+      @key = @setup.get_string("auth0.key", "")
+      @secret = @setup.get_string("auth0.secret", "")
+    end
+
     private def decoded_secret
       Base64.decode_string @secret
     end
