@@ -12,7 +12,7 @@ module Authoritah
 
     macro ignore_update(*attrs)
       def for_update
-        serialize.reject {|k,v| {{attrs}}.includes? k }
+        serialize.reject {|k,_| {{attrs}}.includes? k }
       end
     end
   end
