@@ -23,7 +23,7 @@ module Authoritah
     end
 
     def fetch_all
-      response = @client.get("/api/v2/rules", headers) as HTTP::Client::Response
+      response = @client.get(rules_path, headers) as HTTP::Client::Response
 
       case response.status_code
       when 404
@@ -38,7 +38,7 @@ module Authoritah
     end
 
     def fetch(id : String)
-      response = @client.get("/#{id}", headers) as HTTP::Client::Response
+      response = @client.get(rule_path(id), headers) as HTTP::Client::Response
 
       case response.status_code
       when 404
@@ -59,6 +59,14 @@ module Authoritah
     end
 
     def delete(rule : Rule)
+    end
+
+    private def rules_path
+      "/api/v2/rules"
+    end
+
+    private def rule_path(id)
+      rules_path + "/#{id}"
     end
 
     private def headers
