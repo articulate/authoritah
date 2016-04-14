@@ -51,12 +51,14 @@ module Authoritah
       @client.close
     end
 
-    def create(rule : RuleConfig)
-      response = @client.post(rules_path, headers, rule.serialize.to_json) as HTTP::Client::Response
+    def create(config : RuleConfig)
+      response = @client.post(rules_path, headers, config.serialize.to_json) as HTTP::Client::Response
 
       case response.status_code
       when 201
-        build_rule(response.body)
+        rule = build_rule(response.body)
+        ok "Rule created with id #{rule.id}"
+        rule
       else
         body = JSON.parse response.body
         error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
@@ -68,7 +70,22 @@ module Authoritah
     def update(rule : Rule)
     end
 
-    def delete(rule : Rule)
+    def delete(rule : RuleConfig)
+      delete(rule.id)
+    end
+
+    def delete(id : String)
+      response = @client.delete(rule_path(id), headers) as HTTP::Client::Response
+
+      case response.status_code
+      when 204
+        warn "Rule '#{id}' removed."
+      else
+        body = JSON.parse response.body
+        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+      end
+    ensure
+      @client.close
     end
 
     private def rules_path

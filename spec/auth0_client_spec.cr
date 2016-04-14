@@ -99,5 +99,42 @@ module Authoritah
         process.wait.exit_code.should eq 1
       end
     end
+
+    context "delete" do
+      rule = config_fixture("rule")
+
+      it "deletes a rule given a rule" do
+        client = new_client(setup) do |mock|
+          mock.should_receive(:delete)
+              .with("/api/v2/rules/#{rule.id}", headers)
+              .and_return(empty_response(204))
+        end
+
+        res = client.delete(rule)
+        res.should be_nil
+      end
+
+      it "deletes a rule given an id" do
+        client = new_client(setup) do |mock|
+          mock.should_receive(:delete)
+              .with("/api/v2/rules/#{rule.id}", headers)
+              .and_return(empty_response(204))
+        end
+
+        res = client.delete(rule.id)
+        res.should be_nil
+      end
+
+      it "fails with message on error" do
+        client = new_client(setup) do |mock|
+          mock.should_receive(:delete)
+              .with("/api/v2/rules/400", headers)
+              .and_return(build_response({message: "fails dot com"}, 400))
+        end
+
+        process = fork { client.delete("400") }
+        process.wait.exit_code.should eq 1
+      end
+    end
   end
 end

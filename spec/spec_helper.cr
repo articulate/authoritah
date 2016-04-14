@@ -18,8 +18,12 @@ def config_fixture(name)
   Authoritah::RuleConfig.from_yaml yaml_fixture(name)
 end
 
-def build_response(body : Hash | Nil, status = 200)
+def build_response(body : Hash, status = 200)
   build_response(body.to_json, status)
+end
+
+def empty_response(status)
+  HTTP::Client::Response.new status
 end
 
 def build_response(body : String, status = 200)
