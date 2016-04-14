@@ -26,6 +26,6 @@ def build_response(body : String, status = 200)
   HTTP::Client::Response.new status, body: body
 end
 
-def load_response(name)
-  build_response json_fixture(name)
+def load_response(name, status = 200)
+  build_response json_fixture(name), status
 end

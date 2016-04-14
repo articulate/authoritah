@@ -11,7 +11,6 @@ module Authoritah
     def initialize(@setup : Setup)
       domain = @setup.get_string("auth0.domain", "")
       uri = URI.parse(RULES_API_PATH % domain)
-      puts uri
 
       @client = HTTP::Client.new(uri)
     end
@@ -52,7 +51,18 @@ module Authoritah
       @client.close
     end
 
-    def create(rule : Rule)
+    def create(rule : RuleConfig)
+      response = @client.post(rules_path, headers, rule.serialize.to_json) as HTTP::Client::Response
+
+      case response.status_code
+      when 201
+        build_rule(response.body)
+      else
+        body = JSON.parse response.body
+        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+      end
+    ensure
+      @client.close
     end
 
     def update(rule : Rule)
