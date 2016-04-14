@@ -26,5 +26,9 @@ module Authoritah
     def script
       File.read(script_file).chomp
     end
+
+    def diff(other : Rule)
+      other.diff(self)
+    end
   end
 end
