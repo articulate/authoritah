@@ -136,5 +136,32 @@ module Authoritah
         process.wait.exit_code.should eq 1
       end
     end
+
+    context "update" do
+      config = config_fixture("rule")
+
+      it "deletes a rule given a rule" do
+        client = new_client(setup) do |mock|
+          mock.should_receive(:patch)
+              .with("/api/v2/rules/#{config.id}", headers, config.for_update.to_json)
+              .and_return(load_response("rule", 200))
+        end
+
+        res = client.update(config)
+        res.should be_a Rule
+        res.should eq config
+      end
+
+      it "fails with message on error" do
+        client = new_client(setup) do |mock|
+          mock.should_receive(:patch)
+              .with("/api/v2/rules/#{config.id}", headers, config.for_update.to_json)
+              .and_return(build_response({message: "fails dot com"}, 400))
+        end
+
+        process = fork { client.update(config) }
+        process.wait.exit_code.should eq 1
+      end
+    end
   end
 end

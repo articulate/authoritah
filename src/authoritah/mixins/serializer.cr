@@ -9,5 +9,11 @@ module Authoritah
         }.reject {|_,v| v.nil? }
       end
     end
+
+    macro ignore_update(*attrs)
+      def for_update
+        serialize.reject {|k,v| {{attrs}}.includes? k }
+      end
+    end
   end
 end

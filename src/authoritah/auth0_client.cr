@@ -67,7 +67,20 @@ module Authoritah
       @client.close
     end
 
-    def update(rule : Rule)
+    def update(config : RuleConfig)
+      response = @client.patch(rule_path(config.id), headers, config.for_update.to_json) as HTTP::Client::Response
+
+      case response.status_code
+      when 200
+        rule = build_rule(response.body)
+        warn "Rule '#{rule.id}' updated."
+        rule
+      else
+        body = JSON.parse response.body
+        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+      end
+    ensure
+      @client.close
     end
 
     def delete(rule : RuleConfig)
