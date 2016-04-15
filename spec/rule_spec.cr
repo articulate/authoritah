@@ -6,7 +6,7 @@ module Authoritah
 
     it "can be built from JSON" do
       model.should be_a(Rule)
-      model.name.should eq "Dummy Prevention"
+      model.name.should eq "derp rule"
     end
 
     context "comparison" do
@@ -20,9 +20,8 @@ module Authoritah
 
       it "shows  differences when not different" do
         model.diff(config_fixture("diff_rule")).should eq({
-          name:    Diff.new("Dummy Prevention", "Dumb Prevention"),
-          enabled: Diff.new(true, false),
-          stage:   Diff.new("dummy_resolution", "fake_resolve"),
+          name:  Diff.new("derp rule", "Dumb Prevention"),
+          stage: Diff.new("test", "fake_resolve"),
         })
       end
     end

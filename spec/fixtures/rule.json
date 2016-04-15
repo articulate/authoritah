@@ -1,8 +1,8 @@
-{
-  "name": "Dummy Prevention",
-  "id": "3F1B9C7F-3D43-429A-B6EC-1652E728E061",
-  "enabled": true,
-  "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
-  "order": 1,
-  "stage": "dummy_resolution"
-}
+  {
+    "enabled": false,
+    "id": "rul_gitP2ivZ7ZV9uDcN",
+    "name": "derp rule",
+    "order": 1,
+    "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
+    "stage": "test"
+  }

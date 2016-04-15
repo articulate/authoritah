@@ -1,5 +1,5 @@
-uuid: 3F1B9C7F-3D43-429A-B6EC-1652E728E061
-name: Dummy Prevention
+uuid: rul_gitP2ivZ7ZV9uDcN
+name: derp rule
 script_file: ./spec/fixtures/dummy-script.js
-stage: dummy_resolution
-enabled: true
+stage: test
+enabled: false

@@ -4,7 +4,7 @@
     "id": "rul_gitP2ivZ7ZV9uDcN",
     "name": "derp rule",
     "order": 1,
-    "script": "",
+    "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
     "stage": "test"
   },
   {
