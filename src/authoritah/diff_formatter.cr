@@ -29,19 +29,36 @@ module Authoritah
     end
 
     def format_changed(diff : Diff, indent_level)
-      format_at_indent(diff.local, UI[:changed], indent_level)
+      format_changed(diff.local, diff.server, indent_level)
+    end
+
+    def format_changed(local : RuleConfig, server : Rule, indent_level)
+      format(local.diff(server), indent_level + 1)
+    end
+
+    def format_changed(local, server, indent_level)
+      format_removed(server, indent_level) + "\n" +
+        format_added(local, indent_level)
     end
 
     def format_added(diff : Diff, indent_level)
       format_at_indent(diff.local, UI[:added], indent_level)
     end
 
+    def format_added(diff, indent_level)
+      format_at_indent(diff.to_s, UI[:added], indent_level)
+    end
+
     def format_removed(diff : Diff, indent_level)
       format_at_indent(diff.server, UI[:removed], indent_level)
     end
 
+    def format_removed(diff, indent_level)
+      format_at_indent(diff.to_s, UI[:removed], indent_level)
+    end
+
     def format_at_indent(details : Rule | RuleConfig, ui, indent_level)
-      format_at_indent(details.name, ui, indent_level)
+      format_at_indent(details.serialize, ui, indent_level)
     end
 
     def format_at_indent(details : String, ui, indent_level)
