@@ -11,7 +11,7 @@ module Authoritah
       def diff(other : {{type}})
         {
           {% for attr in fields %}
-            {{attr}} => Diff.new(self.{{attr.id}}, other.{{attr.id}}),
+            {{attr}} => Diff.new(self.{{attr.id}}, other.{{attr.id}}, self),
           {% end %}
         }.reject{|_,diff| !diff.changed? }
       end

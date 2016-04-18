@@ -2,9 +2,10 @@ module Authoritah
   class Diff
     def_equals @local, @server
 
-    getter! :local, :server
+    getter! :local, :server, :config
 
-    def initialize(@local, @server)
+    def initialize(@local, @server, @config = nil)
+      @config ||= @local if @local.is_a? RuleConfig
     end
 
     def empty?

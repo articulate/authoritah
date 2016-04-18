@@ -27,11 +27,11 @@ module Authoritah
 
       diffs = rules.map do |rule|
         other = others.find(rule)
-        Diff.new(rule, other)
+        Diff.new(rule, other, rule)
       end.reject &.empty?
 
       # add in removals
-      diffs.concat others.find(removed).map { |other| Diff.new(nil, other) }
+      diffs.concat others.find(removed).map { |other| Diff.new(nil, other, other) }
     end
   end
 end
