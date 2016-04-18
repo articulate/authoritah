@@ -92,6 +92,51 @@ cli = Commander::Command.new do |cmd|
       end
     end
   end
+
+  cmd.commands.add do |cmd|
+    cmd.flags.add domain_flag
+    cmd.use = "diff [rules file]"
+    cmd.short = "Shows differences between existing ruleset and local config"
+    cmd.run do |options, arguments|
+      input = arguments.size > 0 ? arguments[0] : STDIN
+
+      begin
+        client = Auth0Client.new(setup)
+        local = LocalManifest.new(input)
+        server = ServerManifest.new(client)
+
+        diff = local.diff(server)
+        if diff.empty?
+          ok "No changes found!"
+        else
+          puts DiffFormatter.new(diff).format
+        end
+
+        nil
+      rescue e
+        error e.message.to_s
+      end
+    end
+  end
+
+  cmd.commands.add do |cmd|
+    cmd.flags.add domain_flag
+    cmd.use = "dump [rules file]"
+    cmd.short = "Saves server ruleset to local file"
+    cmd.run do |options, arguments|
+      output = arguments.size > 0 ? File.new(arguments[0], "w") : STDOUT
+
+      client = Auth0Client.new(setup)
+      rules = client.fetch_all
+
+      rules.map &.save_script unless output == STDOUT
+      output << YAML.dump(rules.map(&.serialize))
+
+      output.close if output.is_a? File
+
+      nil
+    end
+  end
 end
 
 Commander.run(cli, ARGV)
