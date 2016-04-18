@@ -5,6 +5,10 @@ module Authoritah
   class Auth0Client
     include Mixins::Speak
 
+    class NotFound < Exception; end
+
+    class APIError < Exception; end
+
     RULES_API_PATH = "https://%s.auth0.com/"
 
     # Create an AuthClient from a `domain`
@@ -21,7 +25,7 @@ module Authoritah
     def initialize(@client, @setup : Setup)
     end
 
-    def fetch_all
+    def fetch_all : Array(Rule)
       response = @client.get(rules_path, headers) as HTTP::Client::Response
 
       case response.status_code
@@ -30,7 +34,7 @@ module Authoritah
       when 200
         build_rules(response.body)
       else
-        error "Invalid API response (status code #{response.status_code})"
+        raise APIError.new("Invalid API response (status code #{response.status_code})")
       end
     ensure
       @client.close
@@ -41,11 +45,11 @@ module Authoritah
 
       case response.status_code
       when 404
-        error "No record found for '#{id}'"
+        raise NotFound.new("No record found for '#{id}'")
       when 200
         build_rule(response.body)
       else
-        error "Invalid API response (status code #{response.status_code})"
+        raise APIError.new("Invalid API response (status code #{response.status_code})")
       end
     ensure
       @client.close
@@ -61,7 +65,7 @@ module Authoritah
         rule
       else
         body = JSON.parse response.body
-        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+        raise APIError.new("Invalid API response (status code #{response.status_code}): #{body["message"]}")
       end
     ensure
       @client.close
@@ -77,7 +81,7 @@ module Authoritah
         rule
       else
         body = JSON.parse response.body
-        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+        raise APIError.new("Invalid API response (status code #{response.status_code}): #{body["message"]}")
       end
     ensure
       @client.close
@@ -95,7 +99,7 @@ module Authoritah
         warn "Rule '#{id}' removed."
       else
         body = JSON.parse response.body
-        error "Invalid API response (status code #{response.status_code}): #{body["message"]}"
+        raise APIError.new("Invalid API response (status code #{response.status_code}): #{body["message"]}")
       end
     ensure
       @client.close
@@ -122,7 +126,7 @@ module Authoritah
     end
 
     private def build_rules(items) : Array(Rule)
-      return Array(Rule).new if items.empty?
+      return [] of Rule if items.empty?
 
       Array(Rule).from_json(items)
     end

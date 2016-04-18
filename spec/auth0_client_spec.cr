@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 def new_client(setup)
-  fake_client = double
+  fake_client = double()
   fake_client.stub(:close)
 
   yield fake_client
@@ -61,15 +61,16 @@ module Authoritah
         res.should be_a(Rule)
       end
 
-      it "exits with code 1 if not found" do
+      it "raises an error if not found" do
         client = new_client(setup) do |mock|
           mock.should_receive(:get)
               .with("/api/v2/rules/456", headers)
               .and_return(build_response({error: "not found"}, 404))
         end
 
-        process = fork { client.fetch("456") }
-        process.wait.exit_code.should eq 1
+        expect_raises Auth0Client::NotFound, /for '456'/ do
+          client.fetch("456")
+        end
       end
     end
 
@@ -95,8 +96,9 @@ module Authoritah
               .and_return(build_response({message: "fails dot com"}, 400))
         end
 
-        process = fork { client.create(rule) }
-        process.wait.exit_code.should eq 1
+        expect_raises Auth0Client::APIError, /fails dot com/ do
+          client.create(rule)
+        end
       end
     end
 
@@ -132,8 +134,9 @@ module Authoritah
               .and_return(build_response({message: "fails dot com"}, 400))
         end
 
-        process = fork { client.delete("400") }
-        process.wait.exit_code.should eq 1
+        expect_raises Auth0Client::APIError, /fails dot com/ do
+          client.delete("400")
+        end
       end
     end
 
@@ -159,8 +162,9 @@ module Authoritah
               .and_return(build_response({message: "fails dot com"}, 400))
         end
 
-        process = fork { client.update(config) }
-        process.wait.exit_code.should eq 1
+        expect_raises Auth0Client::APIError, /fails dot com/ do
+          client.update(config)
+        end
       end
     end
   end
