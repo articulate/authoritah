@@ -9,6 +9,31 @@ module Authoritah
       model.name.should eq "derp rule"
     end
 
+    context "script" do
+      it "can be saved" do
+        path = "./spec/fixtures/save_script.js"
+
+        File.exists?(path).should be_false
+
+        model.save_script path
+        File.exists?(path).should be_true
+
+        File.delete path
+      end
+
+      it "defaults save to ./rules/<name>.js" do
+        path = "./rules/#{model.name}.js"
+        File.exists?(path).should be_false
+
+        model.save_script
+        File.exists?(path).should be_true
+
+        # cleanup
+        File.delete path
+        Dir.rmdir "./rules"
+      end
+    end
+
     context "comparison" do
       it "can compare with a config" do
         model.should eq config_fixture("rule")
