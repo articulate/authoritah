@@ -32,4 +32,11 @@ module Authoritah
       script_file
     end
   end
+
+  class RemovedRule
+    getter :id
+
+    def initialize(@id)
+    end
+  end
 end

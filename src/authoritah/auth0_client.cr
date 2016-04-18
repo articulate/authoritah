@@ -87,7 +87,7 @@ module Authoritah
       @client.close
     end
 
-    def delete(rule : RuleConfig)
+    def delete(rule : Rule)
       delete(rule.id)
     end
 
@@ -97,6 +97,7 @@ module Authoritah
       case response.status_code
       when 204
         warn "Rule '#{id}' removed."
+        RemovedRule.new(id)
       else
         body = JSON.parse response.body
         raise APIError.new("Invalid API response (status code #{response.status_code}): #{body["message"]}")
