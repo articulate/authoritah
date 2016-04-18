@@ -137,6 +137,32 @@ cli = Commander::Command.new do |cmd|
       nil
     end
   end
+
+  cmd.commands.add do |cmd|
+    cmd.flags.add domain_flag
+    cmd.use = "apply [rules file]"
+    cmd.short = "Applies config to an Auth0 instance"
+    cmd.run do |options, arguments|
+      input = arguments.size > 0 ? arguments[0] : STDIN
+
+      begin
+        client = Auth0Client.new(setup)
+        local = LocalManifest.new(input)
+        server = ServerManifest.new(client)
+
+        diff = local.diff(server)
+        if diff.empty?
+          ok "No changes found!"
+        else
+          rules = DiffApplier.new(diff, client).apply
+        end
+
+        nil
+      rescue e
+        error e.message.to_s
+      end
+    end
+  end
 end
 
 Commander.run(cli, ARGV)
