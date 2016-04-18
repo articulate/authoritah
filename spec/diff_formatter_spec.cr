@@ -10,7 +10,7 @@ module Authoritah
 
     it "can format a diff" do
       str = DiffFormatter.new(diffs).format
-      str.should eq "\e[32m+yes\n\e[0m\e[31m-no\n\e[0myes:\n\e[33m*  other\n\e[0m"
+      str.should eq "\e[32m+yes\n\e[0m\e[31m-no\n\e[0myes:\n\e[31m-  fake\n\e[0m\e[32m+  other\n\e[0m"
     end
   end
 end
