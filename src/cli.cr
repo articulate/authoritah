@@ -1,6 +1,7 @@
 require "commander"
 require "./authoritah"
 
+include Authoritah
 include Authoritah::Mixins::Speak
 
 domain_flag = Commander::Flag.new do |flag|
@@ -11,7 +12,7 @@ domain_flag = Commander::Flag.new do |flag|
   flag.description = "The Auth0 domain."
 end
 
-setup = Authoritah::Setup.new("./.authoritah")
+setup = Setup.new("./.authoritah")
 
 cli = Commander::Command.new do |cmd|
   cmd.use = "authoritah"
@@ -80,7 +81,7 @@ cli = Commander::Command.new do |cmd|
 
       error "Missing key or secret options." if key.empty? || secret.empty?
 
-      builder = Authoritah::JWTBuilder.new(key, secret, setup)
+      builder = JWTBuilder.new(key, secret, setup)
 
       if arguments.size > 0 && arguments.first == "refresh"
         jwt = builder.refresh
