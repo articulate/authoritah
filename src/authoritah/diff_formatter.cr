@@ -40,7 +40,7 @@ module Authoritah
       format_at_indent(diff.server, UI[:removed], indent_level)
     end
 
-    def format_at_indent(details : Diff, ui, indent_level)
+    def format_at_indent(details : Rule | RuleConfig, ui, indent_level)
       format_at_indent(details.name, ui, indent_level)
     end
 
