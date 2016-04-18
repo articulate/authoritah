@@ -2,6 +2,28 @@ require "spec"
 require "mock"
 require "../src/authoritah"
 
+class FakeClient
+  def initialize
+    @rules = Array(Authoritah::Rule).from_json(json_fixture("rules"))
+  end
+
+  def fetch_all
+    @rules
+  end
+
+  def create(model)
+    "yes"
+  end
+
+  def update(model)
+    "no"
+  end
+
+  def delete(model)
+    "okay"
+  end
+end
+
 def json_fixture(name)
   File.read("./spec/fixtures/#{name}.json")
 end
