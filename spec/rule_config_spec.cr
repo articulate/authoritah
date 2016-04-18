@@ -20,7 +20,7 @@ module Authoritah
         config.diff(rule).empty?.should be_true
       end
 
-      it "shows  differences when not different" do
+      it "shows differences when not different" do
         config_fixture("diff_rule").diff(rule).should eq({
           name:  Diff.new("derp rule", "Dumb Prevention"),
           stage: Diff.new("test", "fake_resolve"),

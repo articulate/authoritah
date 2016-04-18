@@ -1,18 +1,30 @@
 -
   uuid: 3F1B9C7F-3D43-429A-B6EC-1652E728E061
   name: Duplication Prevention
-  script_file: dummy-script.js
+  script_file: ./spec/fixtures/dummy-script.js
   stage: user_registration
   enabled: true
 -
   uuid: F4C65760-4306-4871-8172-3A31F00E4723
   name: User Data
-  script_file: dummy-script.js
+  script_file: ./spec/fixtures/dummy-script.js
   stage: login_success
   enabled: true
 -
   uuid: 259C5F5A-F64F-4DA2-86F2-57B395DECBC5
   name: domain whitelisting
-  script_file: dummy-script.js
+  script_file: ./spec/fixtures/dummy-script.js
   stage: login_success
+  enabled: false
+-
+  enabled: false
+  uuid: rul_gitP2ivZ7ZV9uDcN
+  name: derp rule
+  script_file: ./spec/fixtures/dummy-script.js
+  stage: test
+-
   enabled: true
+  uuid: rul_YG07M0qGYhnPPaix
+  name: derper rule
+  script_file: ./spec/fixtures/dummy-script.js
+  stage: test
