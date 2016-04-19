@@ -12,7 +12,7 @@ Download the [latest](https://github.com/articulate/authoritah/releases/latest) 
 
 Place binary somewhere on your path and set execution permissions (`chmod +x authoritah`).
 
-Alternatively, we provide a [Docker container](hub.docker.com/articulate/authoritah) for this executable which you can use.
+Alternatively, we provide a [Docker container](https://hub.docker.com/r/articulate/authoritah/) for this executable which you can use.
 
 The image will attempt to mount whatever volume you supply (`-v`) pointing to `/auth0` as the point from which it will load the `rules.yml` config and rule script definitions. This will typically be the same directory you are running `authoritah` from.
 
