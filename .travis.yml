@@ -1,1 +1,28 @@
-language: crystal
+language: generic
+sudo: required
+dist: trusty
+services:
+- docker
+matrix:
+  include:
+  - env: ARCH=x86_64 ARCH_CMD=linux64
+    os: linux
+  - os: osx
+before_install: bin/ci prepare_system
+install: bin/ci prepare_build
+script:
+- bin/ci with_build_env 'make'
+after_success:
+- mv ./authoritah authoritah-$TRAVIS_OS_NAME
+notifications:
+  slack:
+    secure: VI1gD1I8chUxWLQUAPm+Iea5U7wm/6Gzf6KOAtN9/NcnhaXSkIKFvPe7bm3GPXVSnJmpGcK6bIEblybm35p2QpfXnyQYYNf0GKGRrwDL7k9g0XKcjNshO2TM7D0ZVNYQTs0leGypQU4PdS0xhg3SkIigz6UcLeadBIp8OXQ3U/Afh72i2r0x3UgYJ4xkiBwEdKiZ38o4OuJtVcWmBPMv/clEIj5JUkoSCV4JL5K1Ij16Iu8KLWAhHOvjyRmC8NHvX754hf6ZygJlCNdyAqxwmr8NHh2bn2ujwbcBl8z+eS6XorEesgtSgxTgkiUqKnHvxAP2/gzRMLmEEoKpVu/68OvOstnwtqClelj9tBtzRp1uaylhacM1sw3rmbrEjl7dQRPzt50yzb6T+H/YPcnYcOAHPEGT6wuVgKeyVCWmHaHxgu75Tf6nWc0RI7dyKphkVGjGueoB/opsfxeN9itRwQCHujQ0nu1wsNQa8n/Ersd5Q6cGXctvQ+w+XYY1b+/reIwnIy0/ty5bkYAkZC3bS5p7Suxo6QFicuysqaHlylXoa1xV97w7rYCF2xpJYQSPfB5SvQqkOIvmLNkNqIQ8WQ3YeIviKOx0hdJ9f6ysye9+G1EnvlpRjpafEtFWu/UBJqM+3kx2yUYiq0pQ/M+u2VleU3iCa+KV2de9oBjGoIQ=
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: qq7jf6zk6qkZkbhmS32ozxxGSP3zUqXu68dc1NVIDNqSRnvFEOS4v60HIiRmdqIIDVjH63gEqemJwGjpAyw8OFMQixcHv4yWHLqgnGY1kKwL4wOfm6YTNCwKwLV9URdDr6lFQpHELZeWSYRFvR2N+vlX/2tZPplPguEMYrZ6XVdtBvjMK0PeVpvHOdgz6YJ5wWFK4I4hmuAwGWfx9s4XnmxZGtILQzSHyUS24c2jJvXEx1qVDW7Ez9QDWcpO4y3lDbyvjW8Njdw0kjstFuRfRrELTl9k6YfEoH2+wYqet8rXl0uyk+8lxjB6lZGI5BrCnttZ0Frdelp2T1IR5PudG/Y2qVdSVaLA9JQHKOluuAGx8tNz0JHLsLnhub23UEbcAt92qbpolUL7p9R+ChYBl/j5S+ZEZt6dUl9h+CSnuEn+XQELhdsQh5A7a1YCgrX1jGziPFrbDfc60BcgsVeH3KoQ6MrCZ6C6kMweRLVAgkmQHHIeU/mU6cck4VI9Criz9NWlOZoQBzEEpCkdcCatBjDV5eK+a4NCNgi17ALJhhmjwZKzvzLqbvcLAXGiv7MvD3qNzKhEHSbjV7/SuXgjzl4H4gbUqibzf2p43kKkcV4WXVrEpZdE+GNQYvdlg7vqR6U0KnqKkwW39o5GVDFbZlt/wR1GR1U3CSuogmJL6ew=
+  file: 
+    - authoritah-$TRAVIS_OS_NAME
+  on:
+    tags: true
