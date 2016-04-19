@@ -2,6 +2,8 @@
 
 Authoritah is a tool for managing [Auth0](https://auth0.com/) rules via declarative configuration.
 
+[![Build Status](https://travis-ci.org/articulate/authoritah.svg?branch=master)](https://travis-ci.org/articulate/authoritah)
+
 ![authoritah](http://data.boomerang.nl/b/boomerang/image/respect-my-authority/s600/southparkvz.jpg)
 
 ## Installation
