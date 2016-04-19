@@ -12,7 +12,7 @@ module Authoritah
     end
 
     it "can find by id" do
-      manifest.find("rul_gitP2ivZ7ZV9uDcN").should eq rules.first
+      manifest.find("7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC").should eq rules.first
     end
 
     it "can find by config" do

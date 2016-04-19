@@ -103,7 +103,7 @@ module Authoritah
     end
 
     context "delete" do
-      rule = config_fixture("rule")
+      rule = rule_fixture("rule")
 
       it "deletes a rule given a rule" do
         client = new_client(setup) do |mock|
@@ -113,7 +113,8 @@ module Authoritah
         end
 
         res = client.delete(rule)
-        res.should be_nil
+        res.should be_a RemovedRule
+        res.id.should eq rule.id
       end
 
       it "deletes a rule given an id" do
@@ -124,7 +125,8 @@ module Authoritah
         end
 
         res = client.delete(rule.id)
-        res.should be_nil
+        res.should be_a RemovedRule
+        res.id.should eq rule.id
       end
 
       it "fails with message on error" do
@@ -142,6 +144,9 @@ module Authoritah
 
     context "update" do
       config = config_fixture("rule")
+
+      # this will get set during the compare
+      config.id = 123
 
       it "deletes a rule given a rule" do
         client = new_client(setup) do |mock|

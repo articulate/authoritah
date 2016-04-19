@@ -5,11 +5,18 @@ module Authoritah
     include Mixins::DiffHelpers
     include Mixins::Serializer
 
-    def_equals_type Rule, :name, :id, :enabled, :stage, :script
-    serialize_with :name, :script, :enabled, :stage, :order
+    def_equals_type Rule, :name, :uuid, :enabled, :stage, :script
+    serialize_with({
+      name:    serialize_name,
+      script:  script,
+      enabled: enabled,
+      stage:   stage,
+      order:   order,
+    })
     ignore_update :stage
 
-    property :order
+    # TODO: Order ought to be set as part of the config
+    property :order, :id
 
     YAML.mapping({
       name:        String,
@@ -19,8 +26,8 @@ module Authoritah
       stage:       String,
     })
 
-    def id
-      uuid
+    def serialize_name
+      "#{uuid} #{name}"
     end
 
     def script

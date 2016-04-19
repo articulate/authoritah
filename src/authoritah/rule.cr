@@ -6,7 +6,7 @@ module Authoritah
     include Mixins::Serializer
 
     serialize_with :uuid, :name, :script_file, :stage, :enabled
-    def_equals_type RuleConfig, :name, :id, :enabled, :stage, :script
+    def_equals_type RuleConfig, :name, :uuid, :enabled, :stage, :script
 
     property :script_file
 
@@ -20,7 +20,11 @@ module Authoritah
     })
 
     def uuid
-      self.id
+      @name.split(" ").first
+    end
+
+    def name
+      @name.split(" ")[1..-1].join(" ")
     end
 
     def save_script(@script_file = "./rules/#{name}.js")

@@ -2,7 +2,7 @@
   {
     "enabled": false,
     "id": "rul_gitP2ivZ7ZV9uDcN",
-    "name": "derp rule",
+    "name": "7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC derp rule",
     "order": 1,
     "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
     "stage": "test"
@@ -10,7 +10,7 @@
   {
     "enabled": false,
     "id": "rul_YG07M0qGYhnPPaix",
-    "name": "derper rule",
+    "name": "14043C66-01A6-4408-B476-AB68112A9045 derper rule",
     "order": 2,
     "script": "scripty mcscripterson",
     "stage": "test"
@@ -18,7 +18,7 @@
   {
     "enabled": false,
     "id": "rul_2VGSTgrmqGK4WvR6",
-    "name": "derpsalot",
+    "name": "AB11C254-42D4-43F0-AFD1-5B2740C7E662 derpsalot",
     "order": 3,
     "script": "function() {/* noop */}",
     "stage": "test"
@@ -26,7 +26,7 @@
   {
     "enabled": false,
     "id": "rul_3OsegVvry1uid6KU",
-    "name": "derpydoowap",
+    "name": "9D1BF412-221D-415C-9B3F-B8E00DF70275 derpydoowap",
     "order": 4,
     "script": "cant-even.com",
     "stage": "login_success"

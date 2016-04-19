@@ -1,7 +1,7 @@
   {
     "enabled": false,
     "id": "rul_gitP2ivZ7ZV9uDcN",
-    "name": "derp rule",
+    "name": "7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC derp rule",
     "order": 1,
     "script": "function (user, context, callback) {\n  callback(null, user, context);\n}",
     "stage": "test"

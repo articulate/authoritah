@@ -9,20 +9,20 @@ module Authoritah
       @rules = @client.fetch_all as Array(Rule)
     end
 
-    def ids
-      rules.map &.id
+    def uuids
+      rules.map &.uuid
     end
 
-    def find(id : String)
-      rules.find { |r| r.id == id }
+    def find(uuid : String)
+      rules.find { |r| r.uuid == uuid }
     end
 
     def find(cfg : RuleConfig)
-      find(cfg.id)
+      find(cfg.uuid)
     end
 
-    def find(ids : Array(String))
-      rules.select { |r| ids.includes? r.id }
+    def find(uuids : Array(String))
+      rules.select { |r| uuids.includes? r.uuid }
     end
   end
 end

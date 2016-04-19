@@ -14,12 +14,12 @@ module Authoritah
     end
 
     it "can return all ids" do
-      manifest.ids.should eq [
+      manifest.uuids.should eq [
         "3F1B9C7F-3D43-429A-B6EC-1652E728E061",
         "F4C65760-4306-4871-8172-3A31F00E4723",
         "259C5F5A-F64F-4DA2-86F2-57B395DECBC5",
-        "rul_gitP2ivZ7ZV9uDcN",
-        "rul_YG07M0qGYhnPPaix",
+        "7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC",
+        "14043C66-01A6-4408-B476-AB68112A9045",
       ]
     end
 
@@ -28,7 +28,7 @@ module Authoritah
       diff = manifest.diff(server)
 
       it "generates diffs for each actual difference" do
-        # all of them change, 3 removes, 2 adds, 1 unmodified, 1 modified
+        # all of them change, 2 removes, 3 adds, 1 unmodified, 1 modified
         diff.size.should eq 6
       end
 

@@ -18,13 +18,13 @@
   enabled: false
 -
   enabled: false
-  uuid: rul_gitP2ivZ7ZV9uDcN
+  uuid: 7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC
   name: derp rule
   script_file: ./spec/fixtures/dummy-script.js
   stage: test
 -
   enabled: true
-  uuid: rul_YG07M0qGYhnPPaix
+  uuid: 14043C66-01A6-4408-B476-AB68112A9045
   name: derper rule
   script_file: ./spec/fixtures/dummy-script.js
   stage: test

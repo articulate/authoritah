@@ -1,5 +1,15 @@
 module Authoritah
   module Mixins::Serializer
+    macro serialize_with(attrs)
+      def serialize
+        {
+        {% for key, attr in attrs %}
+          {{key}} => self.{{attr}},
+        {% end %}
+        }.reject {|_,v| v.nil? }
+      end
+    end
+
     macro serialize_with(*attrs)
       def serialize
         {

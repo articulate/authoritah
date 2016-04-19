@@ -1,4 +1,4 @@
-uuid: rul_gitP2ivZ7ZV9uDcN
+uuid: 7CED37FE-FBA7-4264-BA37-E92D6F8B1FEC
 name: derp rule
 script_file: ./spec/fixtures/dummy-script.js
 stage: test

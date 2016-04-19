@@ -10,20 +10,24 @@ module Authoritah
       @rules = Array(RuleConfig).from_yaml file.gets_to_end
     end
 
-    def ids
-      rules.map &.id
+    def uuids
+      rules.map &.uuid
     end
 
-    def find(id : String)
-      rules.find { |r| r.id == id }
+    # Will not return ConfigRule with id
+    def find(uuid : String)
+      rules.find { |r| r.uuid == uuid }
     end
 
     def find(rule : Rule)
-      find(rule.id)
+      cfg = find(rule.uuid)
+      cfg.id = rule
+
+      cfg
     end
 
     def diff(others : ServerManifest)
-      removed = others.ids - ids
+      removed = others.uuids - uuids
 
       diffs = rules.map do |rule|
         other = others.find(rule)

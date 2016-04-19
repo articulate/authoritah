@@ -2,25 +2,27 @@ require "spec"
 require "mock"
 require "../src/authoritah"
 
-class FakeClient
-  def initialize
-    @rules = Array(Authoritah::Rule).from_json(json_fixture("rules"))
-  end
+module Authoritah
+  class FakeClient
+    def initialize
+      @rules = Array(Authoritah::Rule).from_json(json_fixture("rules"))
+    end
 
-  def fetch_all
-    @rules
-  end
+    def fetch_all
+      @rules
+    end
 
-  def create(model)
-    "yes"
-  end
+    def create(model : RuleConfig)
+      "created"
+    end
 
-  def update(model)
-    "no"
-  end
+    def update(model : RuleConfig)
+      "updated"
+    end
 
-  def delete(model)
-    "okay"
+    def delete(model : Rule)
+      "deleted"
+    end
   end
 end
 
