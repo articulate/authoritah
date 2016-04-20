@@ -123,13 +123,20 @@ cli = Commander::Command.new do |cmd|
     cmd.flags.add domain_flag
     cmd.use = "dump [rules file]"
     cmd.short = "Saves server ruleset to local file"
+    cmd.flags.add do |flag|
+      flag.name = "scripts"
+      flag.short = "-s"
+      flag.long = "--scripts"
+      flag.default = "./rules"
+      flag.description = "Folder path to save the rule scripts"
+    end
     cmd.run do |options, arguments|
       output = arguments.size > 0 ? File.new(arguments[0], "w") : STDOUT
 
       client = Auth0Client.new(setup)
       rules = client.fetch_all
 
-      rules.map &.save_script unless output == STDOUT
+      rules.map &.save_script(options.string["scripts"]) unless output == STDOUT
       output << YAML.dump(rules.map(&.serialize))
 
       output.close if output.is_a? File

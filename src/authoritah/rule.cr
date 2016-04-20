@@ -27,13 +27,12 @@ module Authoritah
       @name.split(" ")[1..-1].join(" ")
     end
 
-    def save_script(@script_file = "./rules/#{name}.js")
-      script_dir = File.dirname(@script_file.not_nil!)
-      Dir.mkdir_p(script_dir) unless Dir.exists? script_dir
+    def save_script(path = "./rules")
+      Dir.mkdir_p(path) unless Dir.exists? path
 
       # add trailing newline
-      File.write(@script_file.not_nil!, script + "\n")
-      script_file
+      File.write("#{path}/#{name}.js", script + "\n")
+      path
     end
   end
 

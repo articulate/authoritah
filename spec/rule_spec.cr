@@ -10,28 +10,27 @@ module Authoritah
     end
 
     context "script" do
+      file1 = "./spec/fixtures/#{model.name}.js"
+      file2 = "./rules/#{model.name}.js"
+
       it "can be saved" do
-        path = "./spec/fixtures/save_script.js"
+        File.exists?(file1).should be_false
 
-        File.exists?(path).should be_false
-
-        model.save_script path
-        File.exists?(path).should be_true
-
-        File.delete path
+        model.save_script "./spec/fixtures"
+        File.exists?(file1).should be_true
       end
 
       it "defaults save to ./rules/<name>.js" do
-        path = "./rules/#{model.name}.js"
-        File.exists?(path).should be_false
+        File.exists?(file2).should be_false
 
         model.save_script
-        File.exists?(path).should be_true
-
-        # cleanup
-        File.delete path
-        Dir.rmdir "./rules"
+        File.exists?(file2).should be_true
       end
+
+      # cleanup
+      File.delete file1
+      File.delete file2
+      Dir.rmdir "./rules"
     end
 
     context "comparison" do
