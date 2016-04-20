@@ -136,7 +136,7 @@ cli = Commander::Command.new do |cmd|
       client = Auth0Client.new(setup)
       rules = client.fetch_all
 
-      rules.map &.save_script(options.string["scripts"]) unless output == STDOUT
+      rules.each &.save_script(options.string["scripts"]) unless output == STDOUT
       output << YAML.dump(rules.map(&.serialize))
 
       output.close if output.is_a? File

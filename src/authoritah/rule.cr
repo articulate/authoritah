@@ -28,10 +28,12 @@ module Authoritah
     end
 
     def save_script(path = "./rules")
+      @script_file = "#{path}/#{name}.js"
+
       Dir.mkdir_p(path) unless Dir.exists? path
 
       # add trailing newline
-      File.write("#{path}/#{name}.js", script + "\n")
+      File.write(@script_file.not_nil!, script + "\n")
       path
     end
   end
