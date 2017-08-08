@@ -21,7 +21,7 @@ cli = Commander::Command.new do |cmd|
   # Config settings
   cmd.commands.add do |cmd|
     cmd.use = "config [cmd] [options]"
-    cmd.short = "Set biplane configuration options"
+    cmd.short = "Set authoritah configuration options"
     cmd.long = <<-DESC
     Commands available:
       `show`

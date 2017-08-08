@@ -31,7 +31,7 @@ docker run --rm -ti -v $(pwd):/auth0 articulate/authoritah help
 
   Commands:
     apply [rules file]      # Applies config to an Auth0 instance
-    config [cmd] [options]  # Set biplane configuration options
+    config [cmd] [options]  # Set authoritah configuration options
     diff [rules file]       # Shows differences between existing ruleset and local config
     dump [rules file]       # Saves server ruleset to local file
     help [command]          # Help about any command.
